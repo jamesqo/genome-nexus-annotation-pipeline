@@ -162,7 +162,7 @@ public class GenomeNexusImpl implements Annotator {
             throw new GenomeNexusAnnotationFailureException("Server error from Genome Nexus: " + genomicLocation);
         }
         // catch case where annotation fails (server will return default "failed" variant)
-        if (gnResponse == null || !gnResponse.isSuccessfullyAnnotated()) {
+        if (gnResponse == null || !gnResponse.getSuccessfullyAnnotated()) {
             // only logs cases which can't be annotated due to a problem with input
             LOG.warn("Annotation failed for variant " + gnResponse.getVariant());
             annotatedRecord.setErrorMessage(gnResponse != null && gnResponse.getErrorMessage() != null ? gnResponse.getErrorMessage() : "");
@@ -640,7 +640,7 @@ public class GenomeNexusImpl implements Annotator {
             if (gnResponseList != null) {
                 for (VariantAnnotation gnResponse : gnResponseList) {
                     logAnnotationProgress(++annotatedVariantsCount, totalVariantsToAnnotateCount, postIntervalSize);
-                    if (!gnResponse.isSuccessfullyAnnotated()) {
+                    if (!gnResponse.getSuccessfullyAnnotated()) {
                         LOG.warn("Annotation failed for variant " + gnResponse.getVariant() + (gnResponse.getErrorMessage() != null ? ";" + gnResponse.getErrorMessage() : ""));
                     }
                     gnResponseVariantKeyMap.put(gnResponse.getOriginalVariantQuery(), gnResponse);
@@ -656,7 +656,7 @@ public class GenomeNexusImpl implements Annotator {
             AnnotatedRecord annotatedRecord = new AnnotatedRecord(record);
             // if not a failed annotation then convert/merge the response from gn with the maf record
             VariantAnnotation gnResponse = gnResponseVariantKeyMap.get(genomicLocation);
-            if (gnResponse == null || !gnResponse.isSuccessfullyAnnotated()) {
+            if (gnResponse == null || !gnResponse.getSuccessfullyAnnotated()) {
                 if(reannotate || annotationNeeded(record)) {
                     // only log if record actually attempted annotation
                     annotatedRecord.setANNOTATION_STATUS("FAILED");

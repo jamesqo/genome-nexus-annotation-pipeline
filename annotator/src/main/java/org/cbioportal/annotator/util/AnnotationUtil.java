@@ -457,11 +457,11 @@ public class AnnotationUtil {
     }
     
     public Boolean geneGeneExist(VariantAnnotation gnResponse) {
-    	return gnResponse.getOncokb().getAnnotation().isGeneExist();
+    	return gnResponse.getOncokb().getAnnotation().getGeneExist();
     }
 
     public Boolean getVariantExists(VariantAnnotation gnResponse) {
-        return gnResponse.getOncokb().getAnnotation().isVariantExist();
+        return gnResponse.getOncokb().getAnnotation().getVariantExist();
     }
 
     public String getMutationKnownEffect(VariantAnnotation gnResponse) {
