@@ -131,6 +131,7 @@ public class AnnotationPipeline {
             subMain(args);
         } catch (Exception e) {
             LOG.error(e.getMessage());
+            System.exit(1); // Return non-zero exit code so callee can determine whether an exception was thrown
         }
     }
 
