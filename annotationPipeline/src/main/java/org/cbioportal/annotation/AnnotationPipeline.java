@@ -131,6 +131,7 @@ public class AnnotationPipeline {
             subMain(args);
         } catch (Exception e) {
             LOG.error(e.getMessage());
+            return 1;
         }
     }
 
